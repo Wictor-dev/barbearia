@@ -3,6 +3,8 @@ import { theme } from "../../globals/style/theme";
 
 type ButtonContainerProps = {
     size: string;
+    border?: boolean;
+    color: string;
 }
 export const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
     ${({size}) => size === 'large' && css`
@@ -14,7 +16,14 @@ export const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
         height: 24px;
     `}
 
-    background-color: ${theme.colors.b01};
+    
+    ${({border, color}) => border ? css`
+        border-width: 2px;
+        border-color: ${color};
+    `: css`
+        background-color: ${color};
+    `}
+    
     border-radius: 8px;
     align-items: center;
     justify-content: center;
