@@ -5,7 +5,7 @@ import CardTile from "../../components/card-tile";
 import styles from "./styles";
 
 
-const SchedulingScreen = () => {
+export function SchedulingScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.block1}></View>
@@ -16,5 +16,3 @@ const SchedulingScreen = () => {
         </View>
     )
 }
-
-export default SchedulingScreen;
