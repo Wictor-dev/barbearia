@@ -2,8 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, SafeAreaView, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import SchedulingScreen from './scheduling';
-import PerfilScreen from './perfil';
+import SchedulingScreen from '../Scheduling';
+import PerfilScreen from '../Perfil/Perfil';
 
 
 const Tab = createBottomTabNavigator();

@@ -1,5 +1,6 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import { LogIn } from '../pages/LogIn'
+import SignUp from '../pages/SignUp'
 
 export type AuthStackParamList = {
     logIn: undefined,
@@ -14,6 +15,7 @@ export default function AuthRoutes(){
             headerShown: false
         }}>
             <Stack.Screen name="logIn" component={LogIn} />
+            <Stack.Screen name="signUp" component={SignUp} />
         </Stack.Navigator>
     )
 }
