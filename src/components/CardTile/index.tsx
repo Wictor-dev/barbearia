@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import style from './style'
 import { MaterialIcons } from '@expo/vector-icons'; 
 
@@ -7,14 +7,18 @@ import { MaterialIcons } from '@expo/vector-icons';
 type PropsCard = {
     title: string;
     icon: any,
-    iconName?: string
+    iconName?: string,
+    openBottomSheetFunction?: () => void,//(index : any , bottomRef: any) => void
+    disabled: boolean
+
 }
 
 
-const CardTile = ({title, icon, iconName}: PropsCard) => {
+const CardTile = ({title, icon, iconName, openBottomSheetFunction, disabled}: PropsCard) => {
     const TheIcon = icon;
-    return <View style={style.containerMaster}>
-        <View style={style.container}>
+    return (
+    <TouchableOpacity disabled={disabled} onPress = {openBottomSheetFunction}>
+     <View style={{opacity: (disabled ?  0.5: 1),...style.container}} >
             <View style={style.containerIconPrimary}>
                 <TheIcon style = {style.iconPrimary} name = {iconName} size = {40} color = "white" ></TheIcon>
             </View>
@@ -27,7 +31,7 @@ const CardTile = ({title, icon, iconName}: PropsCard) => {
             </View> */}
 
         </View>
-    </View>
+    </TouchableOpacity>)
 }
 
 export default CardTile;
