@@ -6,7 +6,7 @@ import { SearchEmployee } from "../pages/SearchEmployee";
 import { theme } from "../globals/style/theme";
 import { createStackNavigator } from "@react-navigation/stack";
 import { PerfilUser } from "../pages/PerfilUser";
-import { Feather } from '@expo/vector-icons'
+ 
 export type AppTabParamList = {
     Home: undefined;
     Perfil: undefined;
@@ -23,6 +23,7 @@ const Stack = createStackNavigator<AppStackParamList>();
 
 export function Tabs(){
     return (
+
         <Tab.Navigator screenOptions={{ tabBarStyle: {backgroundColor: theme.colors.b12, borderWidth: 0}}}>
             <Tab.Screen name="Perfil" component={PerfilUser} options={{ headerShown:false}}/>
             <Tab.Screen name="Home" component={SchedulingScreen} />
