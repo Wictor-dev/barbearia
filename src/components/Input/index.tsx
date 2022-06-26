@@ -3,13 +3,17 @@ import { Text, TextInput, TextInputProps, View } from "react-native";
 import { InputContainer, InputText } from "./InputStyles";
 
 type InputProps = TextInputProps & {
-    label: string;
+    label?: string;
+    placeholder?: string;
 }
-export function Input({ label }: InputProps){
+export function Input({ label, placeholder, ...rest }: InputProps){
     return (
         <InputContainer>
-            <Text style={{marginBottom: 4, fontSize: 16, color: '#fff'}}>{label}</Text>
-            <InputText />
+            {label && <Text style={{marginBottom: 4, fontSize: 16, color: '#fff'}}>{label}</Text>}
+            <InputText 
+                placeholder={placeholder} 
+                {...rest}
+            />
         </InputContainer>
     )
 }

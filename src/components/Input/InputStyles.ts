@@ -1,10 +1,12 @@
+import { TextInput } from "react-native";
 import styled from "styled-components/native";
 
 export const InputContainer = styled.View`
 
 `
 
-export const InputText = styled.TextInput`
+export const InputText = styled(TextInput)`
+    padding: 0 12px;
     height: 32px;
     width: 300px;
     background-color: #fff;
