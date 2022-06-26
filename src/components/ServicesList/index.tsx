@@ -6,14 +6,15 @@ import { Button } from "../Button";
 import { styles } from "./style";
 import {Feather} from '@expo/vector-icons' 
 
-
+const data = [
+    {key: '1', 'name':'Corte simples', 'price': '20.00'},
+    {key: '2','name': 'Manicure', 'price': '40.00'},
+    {key: '3', 'name':'Platinar', 'price': '45.00'},
+    {key: '4', 'name':'Escovar', 'price': '30.00'},
+  ];
+  
 const ServicesList =  function (){
-    const data = [
-        {key: '1', 'name':'Corte simples', 'price': '20.00'},
-        {key: '2','name': 'Manicure', 'price': '40.00'},
-        {key: '3', 'name':'Platinar', 'price': '45.00'},
-        {key: '4', 'name':'Escovar', 'price': '30.00'},
-      ];
+    
 
     const [serviceChoose, setServiceChoose] = React.useState(null);
 
@@ -22,7 +23,9 @@ const ServicesList =  function (){
     
 
     return <View>
-        <FlatList data={data} renderItem = {
+        <FlatList 
+            data={data} 
+            renderItem = {
             ({ item }) => <ItemList name = {item.name} price = {item.price} id= {item.key} setServiceChoose = {setServiceChoose} getServiceChoose={getServiceChoose} />}
             ItemSeparatorComponent = {()=><View style={{height: 5}}/>}
             
