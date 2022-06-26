@@ -17,6 +17,11 @@ export const ButtonContainer = styled(TouchableOpacity)<ButtonContainerProps>`
         height: 24px;
     `}
 
+    ${({size}) => size === 'medium' && css`
+        width: 92px;
+        height: 32px;
+    `}
+
     
     ${({border, color}) => border ? css`
         border-width: 2px;

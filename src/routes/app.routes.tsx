@@ -15,6 +15,7 @@ export type AppTabParamList = {
 
 export type AppStackParamList = {
     Agendar: undefined;
+    HomeTabs: undefined;
     PerfilEmployer: undefined;
 }
 
@@ -38,6 +39,7 @@ export default function AppRoutes(){
     return (
         <Stack.Navigator screenOptions={{ headerShown:false }}>
             <Stack.Screen name="Agendar" component={Tabs} />
+            <Stack.Screen name="HomeTabs" component={Tabs} />
             <Stack.Screen name="PerfilEmployer" component={PerfilEmployer} />
         </Stack.Navigator>
     )
