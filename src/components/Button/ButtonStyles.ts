@@ -1,3 +1,4 @@
+import { TouchableOpacity } from "react-native";
 import styled, {css} from "styled-components/native";
 import { theme } from "../../globals/style/theme";
 
@@ -6,7 +7,7 @@ type ButtonContainerProps = {
     border?: boolean;
     color: string;
 }
-export const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
+export const ButtonContainer = styled(TouchableOpacity)<ButtonContainerProps>`
     ${({size}) => size === 'large' && css`
         width: 160px;
         height: 40px;
@@ -23,7 +24,7 @@ export const ButtonContainer = styled.TouchableOpacity<ButtonContainerProps>`
     `: css`
         background-color: ${color};
     `}
-    
+
     border-radius: 8px;
     align-items: center;
     justify-content: center;
