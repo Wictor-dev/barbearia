@@ -6,6 +6,7 @@ import { Feather,Fontisto, MaterialCommunityIcons } from '@expo/vector-icons';
 import { BottomSheetServicesList } from "../../components/ServicesList";
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetSCalendar } from "../../components/CalendarView";
+import { BottomSheetEmployeeList } from "../../components/EmployeeList";
 
 
 
@@ -28,13 +29,28 @@ export function SchedulingScreen() {
     const [confirmBottomSheetCalendar, setConfirmBottomSheetCalendar] = useState(false);
     const getConfirmBottomSheetCalendar = () => confirmBottomSheetCalendar;
 
-    const handleSnapPressService = useCallback(() => {
-        bottomSheetRefServices.current?.snapToIndex(0)
-        }, []);
+    const bottomSheetRefEmployee = useRef<BottomSheet>(null);
+    const snapPointsEmployee = useMemo(() => ['60%'], []);
+    const [isCloseBottomSheetEmployee, setIsCloseBottomSheetEmployee] = useState(true);
+    const getIsCloseBottomSheetEmployee = () => isCloseBottomSheetEmployee;
+    const [confirmBottomSheetEmployee, setConfirmBottomSheetEmployee] = useState(false);
+    const getConfirmBottomSheetEmployee = () => confirmBottomSheetEmployee;
+
+    // const handleSnapPressService = useCallback(() => {
+    //     bottomSheetRefServices.current?.snapToIndex(0)
+    //     }, []);
+
+    const handleSnapPressService = () => {
+            bottomSheetRefServices.current?.snapToIndex(0)
+    };
 
     const handleSnapPressCalendar = useCallback(() => {
             bottomSheetRefCalendar.current?.snapToIndex(0)
             }, []);
+    
+    const handleSnapPressEmployee = useCallback(() => {
+        bottomSheetRefEmployee.current?.snapToIndex(0)
+    }, []);
     
     return (
         <View style={styles.container}>
@@ -59,7 +75,7 @@ export function SchedulingScreen() {
             <View style={styles.block2}></View>
             <View style={styles.containerFloat}>
                 <CardTile title="Serviços" icon={Feather} iconName="scissors" openBottomSheetFunction={handleSnapPressService} disabled={false} />
-                <CardTile title="Barbeiro" icon={MaterialCommunityIcons} iconName="bow-tie" disabled={false} />
+                <CardTile title="Barbeiro" icon={MaterialCommunityIcons} iconName="bow-tie" disabled={false} openBottomSheetFunction={handleSnapPressEmployee} />
                 <CardTile title="Data e Horário " icon={Fontisto} iconName="date" openBottomSheetFunction={handleSnapPressCalendar}  disabled={false}/>
             </View>
 
@@ -68,6 +84,14 @@ export function SchedulingScreen() {
                 snapPoints={snapPointsServices}
                 getIsClose={getIsCloseBottomSheetService}
                 setIsClose={setIsCloseBottomSheetService}
+                
+            />
+
+            <BottomSheetEmployeeList
+                bottomSheetRef={bottomSheetRefEmployee}
+                snapPoints={snapPointsEmployee}
+                getIsClose={getIsCloseBottomSheetEmployee}
+                setIsClose={setIsCloseBottomSheetEmployee}
             />
 
             <BottomSheetSCalendar
