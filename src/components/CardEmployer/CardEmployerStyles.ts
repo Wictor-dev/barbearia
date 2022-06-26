@@ -8,7 +8,7 @@ export const Container = styled.View`
     border-radius: 8px;
     justify-content: center;
     padding: 12px;
-    flex-wrap: wrap;
+    flex-direction: row;
 `
 
 export const PerfilContainer = styled.View`
@@ -19,8 +19,7 @@ export const PerfilContainer = styled.View`
 `
 
 export const DataContainer = styled.View`
-    border-width: 1px;
-    border-color: ${theme.colors.g02};
     flex: 1;
     justify-content: space-between;
+    padding-left: 40px;
 `

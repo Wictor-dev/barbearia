@@ -9,7 +9,7 @@ export function PerfilEmployer(){
     const navigation = useNavigation()
     return (
         <ImageBackground source={require('../../assets/images/backgroundStreet.png')} resizeMode="cover" style={{ flex: 1}}>
-            <Feather name="arrow-left" size={40} color="#fff" style={{marginLeft: 12, marginTop: 20}} onPress={() => navigation.goBack()} />
+            <Feather name="arrow-left" size={32} color="#fff" style={{marginLeft: 12, marginTop: 28}} onPress={() => navigation.goBack()} />
             <View style={{flex: 1,flexDirection: 'row'}}>
                 <Container>
                     <Title>Bessie Cooper</Title>

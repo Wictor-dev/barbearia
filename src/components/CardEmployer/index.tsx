@@ -7,13 +7,18 @@ import { Button } from '../Button';
 import { Container, DataContainer, PerfilContainer } from './CardEmployerStyles';
 
 type PerfilScreenPageProps = StackNavigationProp<AppStackParamList, 'PerfilEmployer'>
-
+type ScheduleScreenPageProps = StackNavigationProp<AppStackParamList, 'Schedule'>
 export function CardEmployer() {
     const navigation = useNavigation<PerfilScreenPageProps>()
 
     function handleViewPerfil(){
         navigation.navigate('PerfilEmployer')
     }
+
+    function handleMakeShedule(){
+        navigation.navigate('Schedule')
+    }
+
     return (
         <Container>
             <PerfilContainer></PerfilContainer>
@@ -22,7 +27,7 @@ export function CardEmployer() {
                 <View style={{flexDirection: 'row'}}>
                     <Button title='VER PERFIL' size='small' border onPress={handleViewPerfil} />
                     <View style={{ width: 28 }} />
-                    <Button title='AGENDAR' size='small' />
+                    <Button title='AGENDAR' size='small' onPress={handleMakeShedule} />
                 </View>
             </DataContainer>
         </Container>
