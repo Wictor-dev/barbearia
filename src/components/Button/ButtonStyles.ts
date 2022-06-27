@@ -7,20 +7,19 @@ type ButtonContainerProps = {
     border?: boolean;
     color: string;
 }
-export const ButtonContainer = styled(TouchableOpacity)<ButtonContainerProps>`
+export const ButtonContainer = styled(TouchableOpacity)<ButtonContainerProps>`  
+    padding: 8px;
     ${({size}) => size === 'large' && css`
-        width: 160px;
-        height: 40px;
+        width: 200px;
+        /* height: 50px; */
     `}
     ${({size}) => size === 'small' && css`
         width: 80px;
-        height: 24px;
     `}
 
-    ${({size}) => size === 'medium' && css`
+    /* ${({size}) => size === 'medium' && css`
         width: 92px;
-        height: 32px;
-    `}
+    `} */
 
     
     ${({border, color}) => border ? css`

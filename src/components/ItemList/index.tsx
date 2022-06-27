@@ -3,12 +3,13 @@ import { ColorValue, Text, View } from 'react-native';
 import { style } from "./style";
 import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
+import { useItem } from "../../context/ItemContext";
 
 type DataItem = {
     name : string,
     price: string,
     id: string,
-    setServiceChoose : any,//(value:string) => void,
+    setServiceChoose : React.Dispatch<React.SetStateAction<string>>,//(value:string) => void,
     getServiceChoose : any,//() => string,
 }
 
@@ -18,7 +19,7 @@ type radioButtonProps = {
 
 }
 export function ItemList( {name, price, id, setServiceChoose, getServiceChoose} : DataItem){
-    
+    const { idService, setIdService} = useItem()
 
     return (
         // <TouchableOpacity onPress={selectService}>
@@ -31,8 +32,8 @@ export function ItemList( {name, price, id, setServiceChoose, getServiceChoose} 
             <View style={style.check} >
                 <RadioButton
                     value={id}
-                    onPress = { () => setServiceChoose(id) }
-                    status = { id == getServiceChoose() ? 'checked' : 'unchecked' }
+                    onPress = { () => setIdService(id) }
+                    status = { id == idService ? 'checked' : 'unchecked' }
                 />
             </View>
             

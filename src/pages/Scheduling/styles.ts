@@ -3,6 +3,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        paddingTop:24
         //Index: 0
     },
     menu: {
@@ -26,7 +27,8 @@ const styles = StyleSheet.create({
         //backgroundColor: '#6ec6ff',
         position: 'absolute',
         width: '90%',
-        height: 200,
+        // height: 200,
+        height: 'auto',
         //zIndex: 5,
         alignSelf: 'center',
         bottom: '3%'
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: 'white',
         textAlign: 'center',
-        marginTop: 50
+        marginTop: 24
     },
     title:{
         fontSize: 20,

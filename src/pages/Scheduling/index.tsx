@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useMemo, useState} from "react";
+import React, { useCallback, useRef, useMemo, useState, useEffect} from "react";
 import { View, Text, ScrollView, Image, TouchableOpacity } from "react-native";
 import CardTile from "../../components/CardTile";
 import styles from "./styles";
@@ -7,6 +7,10 @@ import { BottomSheetServicesList } from "../../components/ServicesList";
 import BottomSheet from '@gorhom/bottom-sheet';
 import { BottomSheetSCalendar } from "../../components/CalendarView";
 import { BottomSheetEmployeeList } from "../../components/EmployeeList";
+import { useItem } from "../../context/ItemContext";
+import { Button } from "../../components/Button";
+import { theme } from "../../globals/style/theme";
+import { api } from "../../service/api";
 
 
 
@@ -40,6 +44,7 @@ export function SchedulingScreen() {
     //     bottomSheetRefServices.current?.snapToIndex(0)
     //     }, []);
 
+    const {idService, idEmployee} = useItem()
     const handleSnapPressService = () => {
             bottomSheetRefServices.current?.snapToIndex(0)
     };
@@ -52,6 +57,28 @@ export function SchedulingScreen() {
         bottomSheetRefEmployee.current?.snapToIndex(0)
     }, []);
     
+    const handleSchedule = async() => {
+        const params = {
+            date: '2022-06-30',
+            employee_id: idEmployee,
+            customer_id: 12,
+            services: {
+                id: idService,
+                time: '11:00'
+            }
+        }
+        try{
+            await api.post('/scheduling', JSON.stringify(params), {
+                "headers": {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer 6|ij8of7GiHQyaUb6tQGVh0MpT3DbCQUHwHyc4hnp6`
+                }
+            })
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
         <View style={styles.container}>
     
@@ -67,7 +94,10 @@ export function SchedulingScreen() {
                         resizeMode="center"
                         //resizeMethod="resize"
                         />
-                    <Text style={styles.subtitle}>Escolha agora um horário que se encaixe em sua preferência.</Text>
+                    <Text style={styles.subtitle}>{
+                        !idService ? 'Escolha o serviço desejado' 
+                        : !idEmployee ? 'Escolha o barbeiro desejado' : 'Agora escolha a data e hora de sua preferência'
+                    }</Text>
                 </View>
                 
                 
@@ -77,8 +107,9 @@ export function SchedulingScreen() {
                 <CardTile title="Serviços" icon={Feather} iconName="scissors" openBottomSheetFunction={handleSnapPressService} disabled={false} />
                 <CardTile title="Barbeiro" icon={MaterialCommunityIcons} iconName="bow-tie" disabled={false} openBottomSheetFunction={handleSnapPressEmployee} />
                 <CardTile title="Data e Horário " icon={Fontisto} iconName="date" openBottomSheetFunction={handleSnapPressCalendar}  disabled={false}/>
+                <Button title="AGENDAR" size="large" style={idEmployee && idService ? { display: 'flex', alignSelf: 'flex-end'}: {display: 'none'}} color={theme.colors.b06} onPress={handleSchedule} />
             </View>
-
+            
             <BottomSheetServicesList
                 bottomSheetRef={bottomSheetRefServices}
                 snapPoints={snapPointsServices}

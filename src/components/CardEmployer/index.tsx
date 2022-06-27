@@ -8,7 +8,12 @@ import { Container, DataContainer, PerfilContainer } from './CardEmployerStyles'
 
 type PerfilScreenPageProps = StackNavigationProp<AppStackParamList, 'PerfilEmployer'>
 type ScheduleScreenPageProps = StackNavigationProp<AppStackParamList, 'Schedule'>
-export function CardEmployer() {
+
+type CardProps = {
+    name: string;
+}
+
+export function CardEmployer({name}:CardProps) {
     const navigation = useNavigation<PerfilScreenPageProps>()
 
     function handleViewPerfil(){
@@ -23,7 +28,7 @@ export function CardEmployer() {
         <Container>
             <PerfilContainer></PerfilContainer>
             <DataContainer>
-                <Text style={{ fontSize: 20 }}>Bessie Cooper</Text>
+                <Text style={{ fontSize: 20 }}>{name}</Text>
                 <View style={{flexDirection: 'row'}}>
                     <Button title='VER PERFIL' size='small' border onPress={handleViewPerfil} />
                     <View style={{ width: 28 }} />

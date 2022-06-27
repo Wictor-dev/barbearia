@@ -8,18 +8,19 @@ type ButtonProps = TouchableOpacityProps & {
     border?: boolean,
     size: "small" | "medium" | "large",
     color?: string,
+    textColor?: string,
 }
 
-export function Button({ title, border, size = 'large', color = theme.colors.b01, ...rest} : ButtonProps){
+export function Button({ title, border, size = 'large', color = theme.colors.b01, textColor = theme.colors.g12, ...rest} : ButtonProps){
     const sizes = { 
         small: 12,
         medium: 16,
-        large: 24
+        large: 20
     }
 
     return (
         <ButtonContainer size={size} border={border} color={color} {...rest}> 
-            <Text style={{fontSize: sizes[size], fontWeight: '600', color: theme.colors.g12}}>{title}</Text>
+            <Text style={{fontSize: sizes[size], fontWeight: '600', color: textColor}}>{title}</Text>
             
         </ButtonContainer>
         

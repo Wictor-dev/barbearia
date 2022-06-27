@@ -12,7 +12,6 @@ import { Schedule } from "../pages/Shedule";
 export type AppTabParamList = {
     Home: undefined;
     Perfil: undefined;
-    Search: undefined;
 }
 
 export type AppStackParamList = {
@@ -42,11 +41,8 @@ export function Tabs() {
             },
             tabBarStyle: { backgroundColor: theme.colors.b12, borderWidth: 0 }
         })}>
-            <Tab.Screen name="Home" component={SchedulingScreen} />
+            <Tab.Screen name="Home" component={SchedulingScreen} options={{ headerShown: false}} />
             <Tab.Screen name="Perfil" component={PerfilUser} options={{ headerShown: false }} />
-            <Tab.Screen name="Search" component={SearchEmployee} options={{
-                headerShown: false
-            }} />
         </Tab.Navigator>
     )
 }

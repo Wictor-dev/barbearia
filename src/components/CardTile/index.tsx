@@ -17,7 +17,7 @@ type PropsCard = {
 const CardTile = ({title, icon, iconName, openBottomSheetFunction, disabled}: PropsCard) => {
     const TheIcon = icon;
     return (
-    <TouchableOpacity disabled={disabled} onPress = {openBottomSheetFunction}>
+    <TouchableOpacity disabled={disabled} onPress = {openBottomSheetFunction} style={{marginBottom: 12}}>
      <View style={{opacity: (disabled ?  0.5: 1),...style.container}} >
             <View style={style.containerIconPrimary}>
                 <TheIcon style = {style.iconPrimary} name = {iconName} size = {40} color = "white" ></TheIcon>

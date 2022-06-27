@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ImageBackground, SafeAreaView, Text, View } from "react-native";
 import { Container, PerfilArea, ServicesContainer, ServiceContainer ,Title } from "./PerfilEmployerStyles";
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "../../components/Button";
 import { theme } from "../../globals/style/theme";
+import { api } from "../../service/api";
 export function PerfilEmployer(){
+
     const navigation = useNavigation()
     return (
         <ImageBackground source={require('../../assets/images/backgroundStreet.png')} resizeMode="cover" style={{ flex: 1}}>

@@ -4,6 +4,7 @@ import { style } from "./style";
 import { RadioButton } from 'react-native-paper';
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
 import {Ionicons} from '@expo/vector-icons';
+import { useItem } from "../../context/ItemContext";
 
 type DataItem = {
     name : string,
@@ -18,7 +19,7 @@ type radioButtonProps = {
 
 }
 export function ItemListEmployee( {name, id, setServiceChoose, getServiceChoose} : DataItem){
-    
+    const { idEmployee, setIdEmployee} = useItem()
 
     return (
         // <TouchableOpacity onPress={selectService}>
@@ -34,8 +35,8 @@ export function ItemListEmployee( {name, id, setServiceChoose, getServiceChoose}
             <View style={style.check} >
                 <RadioButton
                     value={id}
-                    onPress = { () => setServiceChoose(id) }
-                    status = { id == getServiceChoose() ? 'checked' : 'unchecked' }
+                    onPress = { () => setIdEmployee(id) }
+                    status = { id == idEmployee ? 'checked' : 'unchecked' }
                 />
             </View>
             
