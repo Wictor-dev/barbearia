@@ -108,10 +108,32 @@ export function SchedulingScreen() {
             </View>
             <View style={styles.block2}></View>
             <View style={styles.containerFloat}>
-                <CardTile title="Serviços" icon={Feather} iconName="scissors" openBottomSheetFunction={handleSnapPressService} disabled={false} />
-                <CardTile title="Barbeiro" icon={MaterialCommunityIcons} iconName="bow-tie" disabled={false} openBottomSheetFunction={handleSnapPressEmployee} />
-                <CardTile title="Data e Horário " icon={Fontisto} iconName="date" openBottomSheetFunction={handleSnapPressCalendar}  disabled={false}/>
-                <Button title="AGENDAR" size="large" style={idEmployee && idService ? { display: 'flex', alignSelf: 'flex-end'}: {display: 'none'}} color={theme.colors.b06} onPress={handleSchedule} />
+
+                <CardTile 
+                    title="Serviços" 
+                    icon={Feather} 
+                    iconName="scissors" 
+                    openBottomSheetFunction={handleSnapPressService}
+                    disabled={false}
+                 />
+                
+                <CardTile
+                    title="Barbeiro"
+                    icon={MaterialCommunityIcons}
+                    iconName="bow-tie"
+                    disabled={idService === ""}
+                    openBottomSheetFunction={handleSnapPressEmployee}
+                />
+
+                <CardTile
+                    title="Data e Horário "
+                    icon={Fontisto} 
+                    iconName="date" 
+                    openBottomSheetFunction={handleSnapPressCalendar}  
+                    disabled={idEmployee === ""}
+                />
+
+                {/* <Button title="AGENDAR" size="large" style={idEmployee && idService ? { display: 'flex', alignSelf: 'flex-end'}: {display: 'none'}} color={theme.colors.b06} onPress={handleSchedule} /> */}
             </View>
             
             <BottomSheetServicesList
@@ -119,7 +141,6 @@ export function SchedulingScreen() {
                 snapPoints={snapPointsServices}
                 getIsClose={getIsCloseBottomSheetService}
                 setIsClose={setIsCloseBottomSheetService}
-                
             />
 
             <BottomSheetEmployeeList

@@ -1,9 +1,13 @@
 import React, {useRef, useMemo, useCallback, useState, useEffect} from "react";
-import {View, Text} from 'react-native';
+import {View, Text, TouchableOpacity} from 'react-native';
 import {Calendar,} from 'react-native-calendars';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { FlatList } from "react-native-gesture-handler";
 import { ItemSchedule } from "../ItemSchedule";
+import style from "../CardTile/style";
+import { styles } from "./style";
+import { useItem } from "../../context/ItemContext";
+import { api } from "../../service/api";
 
 
 
@@ -76,6 +80,8 @@ type ParamsBottomSheet = {
 
 const BottomSheetSCalendar = function({bottomSheetRef,snapPoints, getIsClose, setIsClose}: ParamsBottomSheet){
 
+  const {idEmployee} = useItem();
+
     // callbacks
     const handleSnapPress = useCallback((index) => {
         setIsClose(false)
@@ -99,40 +105,53 @@ const BottomSheetSCalendar = function({bottomSheetRef,snapPoints, getIsClose, se
   const [data, setData] = useState(data2);
   const [loading, setLoading] = useState(true);
   const URL_REMOTE = "https://barber-scheduling.herokuapp.com/api"
-  const URL_LOCAL = "http://192.168.0.5/barber_scheduling/public/api"
-  const TOKEN_REMOTE = '1|1ktTUwbSkCgQAl55TKbkng87iZC3p3XxduSLiCt5'
+  const URL_LOCAL = "http://localhost/barber_scheduling/public"
+  const TOKEN_REMOTE = '1|1ktTUwbSkCgQAl55TKbkng87iZC3p3XxduSLiCt5'//'1|1ktTUwbSkCgQAl55TKbkng87iZC3p3XxduSLiCt5'
   const TOKEN_LOCAL = "1aN1oG1GvQXDWfn5Ho02q6P8IA3TmMsFqkq3RAxJ"
   
-  const employeeId = 4;
+  const employeeId = 4; //4
   
   const fetchData = async () => {
 
-      let body : any = {
+      const body : any = {
         date: '2022-06-30'
       }
-      const resp = await fetch(`${URL_REMOTE}/user/employees/${employeeId}/schedule-available`,{
-          headers : {
-              "Content-Type" : "application/json",
-              "Authorization": `Bearer ${TOKEN_REMOTE}`,
-          },
-          body: body,
-          method: 'POST',
+      try {
+
+        // Não conseguir fazer esse negócio rodar
+        const { data } = await api.post(`/user/employees/${employeeId}/schedule-available`,JSON.stringify(body), {
+          "headers": {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${TOKEN_REMOTE}`
+          }
+        });
+        // const url =  new URL(`${URL_REMOTE}/user/employees`);
+        // const resp = await fetch(url,{
+        //   headers : {
+        //       "Content-Type" : "application/json",
+        //       "Authorization": `Bearer ${TOKEN_REMOTE}`,
+        //   },
+          //body: body,
+          //method: 'get',
           
-      });
-      const data = await resp.json();
+        //});
+        //console.log(resp.status);  
+      } catch (error) {
+        console.log("Erro search schedule: " + error)
+      }
+      
       setData(data);
       setLoading(false);
     };
 
-    // useEffect(() => {
-    //   fetchData();
-    // }, []);
+    useEffect(() => {
+      fetchData();
+    }, [idEmployee]);
 
     
 
   return  (
-    
-     <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} enablePanDownToClose={true}>
+     <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} enablePanDownToClose={true} >
             <CalendarView/>
             <View >
                 <FlatList
@@ -145,9 +164,18 @@ const BottomSheetSCalendar = function({bottomSheetRef,snapPoints, getIsClose, se
                     renderItem = { ({ item }) => <ItemSchedule title = {item.hour} ></ItemSchedule>}
                 />
             </View>
+
+            <View style={styles.container}>
+                <View style={styles.buttonWraper}>
+                    <View style={styles.textContainer}>
+                        <TouchableOpacity onPress={handleConfirmBottomSheet}>
+                            <Text style={styles.text} >Agendar</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </View>
             
     </BottomSheet>
-    
   );
 
         

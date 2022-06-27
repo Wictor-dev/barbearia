@@ -1,5 +1,5 @@
 import React, { useRef, useMemo, useCallback, useEffect, useState } from "react";
-import { FlatList, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { FlatList, View, Text, TouchableOpacity, ActivityIndicator, SafeAreaView } from 'react-native';
 import BottomSheet from '@gorhom/bottom-sheet';
 import { ItemList } from "../ItemList";
 import { Button } from "../Button";
@@ -68,7 +68,7 @@ type ParamsBottomSheet = {
     setIsClose: any
 }
 
-const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClose, setIsClose }: ParamsBottomSheet) {
+const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClose, setIsClose}: ParamsBottomSheet) {
 
     // callbacks
     const handleSnapPress = useCallback((index) => {
@@ -88,8 +88,7 @@ const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClo
 
 
     return (
-
-        <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} enablePanDownToClose={true}>
+        <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} >
             <ServicesList />
             {/* <View style={styles.container}>
                 <View style={styles.buttonWraper}>
@@ -101,7 +100,13 @@ const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClo
                 </View>
             </View> */}
             <View style={{flex: 1, alignItems: 'center', paddingTop: 40}}>
-                <Button title="CONFIRMAR" color={theme.colors.b10} textColor={theme.colors.b01} size="large" onPress={handleConfirmBottomSheet}/>
+                <Button 
+                    title="CONFIRMAR" 
+                    color={theme.colors.b10} 
+                    textColor={theme.colors.b01} 
+                    size="large" 
+                    onPress={handleConfirmBottomSheet}
+                />
             </View>
 
         </BottomSheet>

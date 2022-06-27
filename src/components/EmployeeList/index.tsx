@@ -8,16 +8,18 @@ import { Feather } from '@expo/vector-icons'
 import { ItemListEmployee } from "../ItemListEmployee";
 import { api } from "../../service/api";
 import { theme } from "../../globals/style/theme";
+import { useItem } from "../../context/ItemContext";
 
 const EmployeeList = function () {
 
+    const {idService} = useItem();
 
     const data2 = [
-        { id: '1', name: 'Corte simples' },
+        //{ id: '1', name: 'Corte simples' },
     ];
 
-    const [data, setData] = useState(data2);
-    const [loading, setLoading] = useState(true);
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
     const URL_REMOTE = "https://barber-scheduling.herokuapp.com/api"
     const URL_LOCAL = "http://192.168.0.5/barber_scheduling/public/api"
     const TOKEN_REMOTE = '1|1ktTUwbSkCgQAl55TKbkng87iZC3p3XxduSLiCt5'
@@ -25,23 +27,24 @@ const EmployeeList = function () {
 
     const fetchData = async () => {
         try {
-            const { data } = await api.get('/user/employees', {
+            const { data } = await api.get(`/service/${idService}/employees`, {
                 "headers": {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${TOKEN_REMOTE}`
                 }
             })
-
+            setLoading(true);
             await new Promise(resolve => setTimeout(resolve, 2000))
             setLoading(false);
             setData(data);
         } catch (e) {
-            console.log(e)
+            console.log("Error search employee :" + e)
         }
     };
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [idService]);
+
 
     const [serviceChoose, setServiceChoose] = React.useState(null);
 
@@ -52,12 +55,18 @@ const EmployeeList = function () {
     return loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color={theme.colors.g10} />
     </View> : <View>
-        <FlatList data={data} renderItem={
-            ({ item }) => <ItemListEmployee name={item.name} key="id" id={item.id} setServiceChoose={setServiceChoose} getServiceChoose={getServiceChoose} />}
-            ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
 
-        />
-
+            <FlatList
+                data={data} renderItem={
+                ({ item }) => <ItemListEmployee name={item.name} 
+                        key="id" 
+                        id={item.id} 
+                        setServiceChoose={setServiceChoose} 
+                        getServiceChoose={getServiceChoose}
+                    />}
+                ItemSeparatorComponent={() => <View style={{ height: 5 }} />}
+            />
+        
     </View>
 }
 
@@ -88,8 +97,7 @@ const BottomSheetEmployeeList = function ({ bottomSheetRef, snapPoints, getIsClo
 
 
     return (
-
-        <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} enablePanDownToClose={true}>
+        <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} >
             <EmployeeList />
             <View style={styles.container}>
                 <View style={styles.buttonWraper}>
@@ -102,7 +110,6 @@ const BottomSheetEmployeeList = function ({ bottomSheetRef, snapPoints, getIsClo
             </View>
 
         </BottomSheet>
-
     );
 
 
