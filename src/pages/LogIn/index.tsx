@@ -1,14 +1,30 @@
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
+import { useForm } from 'react-hook-form'
 import { ImageBackground, Text, View } from 'react-native'
 import { Button } from '../../components/Button'
-import { Input } from '../../components/Input'
+import { ControlledInput } from '../../components/ControlledInput'
 import { AuthStackParamList } from '../../routes/auth.routes'
 import { FormContainer, Title } from './LogInStyles'
+import {yupResolver} from '@hookform/resolvers/yup'
+import * as yup from 'yup'
 
+type FormData = {
+    email: string;
+    password: string;
+}
+
+const schema = yup.object({
+    email: yup.string().email("Formato inválido").required("O email é obrigatório"),
+    password: yup.string().min(6, "No mínimo 6 dígitos").required("A senha é obrigatória"),
+})
 type SignUpScreenProps = StackNavigationProp<AuthStackParamList, 'signUp'>
 export function LogIn() {
     const navigation = useNavigation<SignUpScreenProps>()
+
+    const {control, handleSubmit, formState: {errors}} = useForm<FormData>({
+        resolver: yupResolver(schema)
+    })
 
     function handleGoSignUp() {
         navigation.navigate('signUp')
@@ -17,11 +33,11 @@ export function LogIn() {
         <ImageBackground source={require('../../assets/images/backgroundAuth.png')} resizeMode='cover' style={{flex: 1, justifyContent: 'center', paddingRight: 16, paddingLeft: 16}}>
             <FormContainer>
                 <Title>Entrar</Title>
-                <Input label="Email" />
+                <ControlledInput label="Email" name="email" control={control} error={errors.email} />
                 <View style={{height: 20}} />
-                <Input label="Senha" />
+                <ControlledInput label="Senha" name="password" control={control} error={errors.password} />
                 <View style={{height: 80}} />
-                <Button />
+                <Button size="large" title="ENTRAR" />
                 <View style={{width: '100%', alignItems: 'flex-end', paddingRight: 8, marginTop: 20}}>
                     <Text style={{fontSize: 20, color: '#fff',}} onPress={handleGoSignUp}>Fazer cadastro</Text>
                 </View>

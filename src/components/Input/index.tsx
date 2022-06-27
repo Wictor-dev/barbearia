@@ -2,7 +2,7 @@ import React from "react";
 import { Text, TextInput, TextInputProps, View } from "react-native";
 import { InputContainer, InputText } from "./InputStyles";
 
-type InputProps = TextInputProps & {
+export type InputProps = TextInputProps & {
     label?: string;
     placeholder?: string;
 }

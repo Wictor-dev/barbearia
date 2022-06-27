@@ -59,13 +59,15 @@ export function SchedulingScreen() {
     
     const handleSchedule = async() => {
         const params = {
-            date: '2022-06-30',
+            date: '2022-05-20',
             employee_id: idEmployee,
-            customer_id: 12,
-            services: {
-                id: idService,
-                time: '11:00'
-            }
+            customer_id: 9,
+            services: [
+                {
+                    id: idService,
+                    time: '11:00'
+                }
+            ]
         }
         try{
             await api.post('/scheduling', JSON.stringify(params), {
@@ -74,6 +76,8 @@ export function SchedulingScreen() {
                     "Authorization": `Bearer 6|ij8of7GiHQyaUb6tQGVh0MpT3DbCQUHwHyc4hnp6`
                 }
             })
+
+
         } catch (e) {
             console.log(e)
         }
