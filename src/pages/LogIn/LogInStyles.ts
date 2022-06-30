@@ -3,8 +3,10 @@ import { theme } from "../../globals/style/theme";
 
 export const FormContainer = styled.View`
     width: 100%;
-    background-color: ${theme.colors.b12};
-    height: 500px;
+    /* background-color: ${theme.colors.b12}; */
+    /* height: 500px; */
+    padding-top: 20px;
+    padding-bottom: 20px;
     border-radius: 8px;
     align-items: center
     ;

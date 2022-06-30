@@ -9,7 +9,7 @@ import { FormContainer, Title } from './LogInStyles'
 import {yupResolver} from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { useAuth } from '../../context/authContext'
-
+import { BlurView } from 'expo-blur'
 type FormData = {
     email: string;
     password: string;
@@ -17,7 +17,7 @@ type FormData = {
 
 const schema = yup.object({
     email: yup.string().email("Formato inválido").required("O email é obrigatório"),
-    password: yup.string().min(6, "No mínimo 6 dígitos").required("A senha é obrigatória"),
+    password: yup.string().min(8, "No mínimo 8 dígitos").required("A senha é obrigatória"),
 })
 
 type SignUpScreenProps = StackNavigationProp<AuthStackParamList, 'signUp'>
@@ -38,17 +38,20 @@ export function LogIn() {
     }
     return (
         <ImageBackground source={require('../../assets/images/backgroundAuth.png')} resizeMode='cover' style={{flex: 1, justifyContent: 'center', paddingRight: 16, paddingLeft: 16}}>
-            <FormContainer>
-                <Title>Entrar</Title>
-                <ControlledInput label="Email" name="email" control={control} error={errors.email} autoCapitalize="none" />
-                <View style={{height: 20}} />
-                <ControlledInput label="Senha" name="password" control={control} error={errors.password} autoCapitalize="none" />
-                <View style={{height: 80}} />
-                <Button size="large" title="ENTRAR" onPress={handleSubmit(handleLogin)} />
-                <View style={{width: '100%', alignItems: 'flex-end', paddingRight: 8, marginTop: 20}}>
-                    <Text style={{fontSize: 20, color: '#fff',}} onPress={handleGoSignUp}>Fazer cadastro</Text>
-                </View>
-            </FormContainer>
+            <BlurView tint='dark' intensity={80}>
+                <FormContainer>
+                    <Title>Entrar</Title>
+                    <ControlledInput label="Email" name="email" control={control} error={errors.email} autoCapitalize="none" />
+                    <View style={{height: 20}} />
+                    <ControlledInput label="Senha" name="password" control={control} error={errors.password} autoCapitalize="none" />
+                    <View style={{height: 80}} />
+                    <Button size="large" title="ENTRAR" onPress={handleSubmit(handleLogin)} />
+                    <View style={{width: '100%', alignItems: 'flex-end', paddingRight: 8, marginTop: 20}}>
+                        <Text style={{fontSize: 20, color: '#fff',}} onPress={handleGoSignUp}>Fazer cadastro</Text>
+                    </View>
+                </FormContainer>
+
+            </BlurView>
             
 
         </ImageBackground>

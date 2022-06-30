@@ -6,12 +6,13 @@ import { ButtonContainer } from "./ButtonStyles";
 type ButtonProps = TouchableOpacityProps & {
     title: string,
     border?: boolean,
-    size: "small" | "medium" | "large",
+    size?: "small" | "medium" | "large",
     color?: string,
     textColor?: string,
+    fill?: boolean,
 }
 
-export function Button({ title, border, size = 'large', color = theme.colors.b01, textColor = theme.colors.g12, ...rest} : ButtonProps){
+export function Button({ title, border, size = 'large', color = theme.colors.b01, textColor = theme.colors.g12, fill, ...rest} : ButtonProps){
     const sizes = { 
         small: 12,
         medium: 16,
@@ -19,7 +20,7 @@ export function Button({ title, border, size = 'large', color = theme.colors.b01
     }
 
     return (
-        <ButtonContainer size={size} border={border} color={color} {...rest}> 
+        <ButtonContainer size={size} border={border} color={color} fill={fill} {...rest}> 
             <Text style={{fontSize: sizes[size], fontWeight: '600', color: textColor}}>{title}</Text>
             
         </ButtonContainer>

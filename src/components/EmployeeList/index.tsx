@@ -27,12 +27,13 @@ const EmployeeList = function () {
 
     const fetchData = async () => {
         try {
-            const { data } = await api.get(`/service/${idService}/employees`, {
+            const { data } = await api.get(`/service/${idService}/employees`,{
                 "headers": {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${TOKEN_REMOTE}`
                 }
             })
+            
             setLoading(true);
             await new Promise(resolve => setTimeout(resolve, 2000))
             setLoading(false);

@@ -18,6 +18,8 @@ export function ControlledInput({name, control,error, ...rest} : Props){
                     <Input
                         onChangeText={onChange}
                         value={value}
+                        autoCapitalize="none"
+                        secureTextEntry={name === 'password' || name==="confirm_password" ? true : false}
                         {...rest}
                     />
                 )}

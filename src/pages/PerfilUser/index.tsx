@@ -5,7 +5,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Button } from "../../components/Button";
 import { theme } from "../../globals/style/theme";
 import { Container, PerfilArea, ServiceContainer, ServicesContainer, Title } from "../PerfilEmployer/PerfilEmployerStyles";
+import { useAuth } from "../../context/authContext";
 export function PerfilUser(){
+    const {user, logOut} = useAuth()
     const navigation = useNavigation()
     return (
         <ImageBackground source={require('../../assets/images/backgroundStreet.png')} resizeMode="cover" style={{ flex: 1}}>
@@ -17,7 +19,7 @@ export function PerfilUser(){
                         <ServiceContainer>
                             <View>
                                 <Text style={{fontSize: 20, color: theme.colors.b11, marginBottom: 8}}>Nome</Text>
-                                <Text style={{color: theme.colors.b08, fontSize: 16}}>Bessie Cooper</Text>
+                                <Text style={{color: theme.colors.b08, fontSize: 16}}>{user?.name}</Text>
                             </View>
                         </ServiceContainer>
                         <ServiceContainer>
@@ -29,7 +31,7 @@ export function PerfilUser(){
                         <ServiceContainer>
                             <View>
                                 <Text style={{fontSize: 20, color: theme.colors.b11, marginBottom: 8}}>Email</Text>
-                                <Text style={{color: theme.colors.b08, fontSize: 16}}>email@gmail.com</Text>
+                                <Text style={{color: theme.colors.b08, fontSize: 16}}>{user?.email}</Text>
                             </View>
                         </ServiceContainer>
                         <ServiceContainer>
@@ -40,6 +42,8 @@ export function PerfilUser(){
                             <Button title="VER SENHA" size="medium" />
                         </ServiceContainer>
                     </ServicesContainer>
+
+                    <Button title="SAIR" fill color={"red"} textColor="#fff" style={{ marginTop: 10 }} onPress={logOut} />
                 </Container>
                 <PerfilArea></PerfilArea>
 

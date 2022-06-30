@@ -133,7 +133,7 @@ export function SchedulingScreen() {
                     disabled={idEmployee === ""}
                 />
 
-                {/* <Button title="AGENDAR" size="large" style={idEmployee && idService ? { display: 'flex', alignSelf: 'flex-end'}: {display: 'none'}} color={theme.colors.b06} onPress={handleSchedule} /> */}
+                <Button title="AGENDAR" size="large" style={idEmployee && idService ? { display: 'flex', alignSelf: 'flex-end'}: {display: 'none'}} color={theme.colors.b06} onPress={handleSchedule} />
             </View>
             
             <BottomSheetServicesList
