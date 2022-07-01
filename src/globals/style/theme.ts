@@ -28,5 +28,7 @@ export const theme = {
         g13: '#1B2629',
         g14: '#0D1314',
         g15: '#060809',
+
+        orange: '#ffbc4e'
     }
 }

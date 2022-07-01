@@ -8,13 +8,15 @@ type User = {
     email: string;
     id: number;
     name: string;
+    employee: null | string;
+    customer: null | string;
 }
 
 type AuthContextData = {
     signed: boolean;
     user: User | null;
     login(email: string, password: string): Promise<void>;
-    signUp(nome: string,email: string, password: string, confirm_password: string, handleGoToScreen: () => void): Promise<void>;
+    signUp(nome: string,email: string, password: string, confirm_password: string, userIndex: number, handleGoToScreen: () => void): Promise<void>;
     loading: boolean;
     logOut(): void;
 }
@@ -39,9 +41,10 @@ export const AuthProvider: React.FC = ({children}) => {
             if (storagedToken && storagedUser){
                 api.defaults.headers.common['Authorization'] = `Bearer ${storagedToken}`
                 setUser(JSON.parse(storagedUser));
+                console.log(JSON.parse(storagedUser))
                 setLoading(false)
             } else {
-                setUser(null)
+                setUser(null)   
                 setLoading(false)
             }
         }
@@ -115,7 +118,7 @@ export const AuthProvider: React.FC = ({children}) => {
 
     }
 
-    async function signUp(name: string, email: string, password: string, confirm_password: string, handleGoToScreen: () => void){
+    async function signUp(name: string, email: string, password: string, confirm_password: string, userIndex: number ,handleGoToScreen: () => void){
         setLoading(true);
         try {
             const params = {
@@ -123,11 +126,13 @@ export const AuthProvider: React.FC = ({children}) => {
                 email,
                 password,
                 password_confirmation: confirm_password,
-                customer: "1",
+                customer: userIndex ? null : "1",
+                employee: userIndex ? "1" : null,
                 device_name: "dev"
             }
 
             const {data} = await api.post('/register', params)
+            console.log(data)
             setLoading(false)
             SucessAlert("Sucesso", "Cadastro concluído com sucesso!", handleGoToScreen)
         } catch (error) {

@@ -1,5 +1,5 @@
 import { StackNavigationProp } from "@react-navigation/stack"
-import React from "react"
+import React, { useState } from "react"
 import { ImageBackground, Text, View } from "react-native"
 import { Button } from "../../components/Button"
 import { FormContainer, Title } from "../LogIn/LogInStyles"
@@ -11,6 +11,7 @@ import {yupResolver} from '@hookform/resolvers/yup'
 import { ControlledInput } from "../../components/ControlledInput"
 import { useAuth } from "../../context/authContext"
 import { BlurView } from 'expo-blur'
+import { Select } from "../../components/Select"
 
 
 type LoginScreenProps = StackNavigationProp<AuthStackParamList, 'logIn'>
@@ -30,7 +31,11 @@ const schema = yup.object({
 })
 export default function SignUp() {
     const navigation = useNavigation<LoginScreenProps>()
+    const [userIndex, setUserIndex] = useState(0)
 
+    function handleSetUserIndex(value: number){
+        setUserIndex(value)
+    }
     const { signUp } = useAuth()
     const {control, handleSubmit, formState: {errors}} = useForm<FormData>({
         resolver: yupResolver(schema)
@@ -40,7 +45,8 @@ export default function SignUp() {
     }
 
     function handleRegisterUser({name, email, password, confirm_password}: FormData){
-        signUp(name, email, password, confirm_password, handleBackLogin);
+
+        signUp(name, email, password, confirm_password,userIndex, handleBackLogin);
     }
     return (
         <ImageBackground source={require('../../assets/images/backgroundAuth.png')} resizeMode='cover' style={{ flex: 1, justifyContent: 'center', paddingRight: 16, paddingLeft: 16 }}>
@@ -54,6 +60,8 @@ export default function SignUp() {
                     <ControlledInput name="password" control={control} error={errors.password} label="Senha" />
                     <View style={{ height: 20 }} />
                     <ControlledInput name="confirm_password" control={control} error={errors.confirm_password} label="Confirmar senha" />
+                    <View style={{ height: 20 }} />
+                    <Select onChangeValue={handleSetUserIndex}/>
                     <View style={{ height: 80 }} />
                     <Button  size="large" title="CADASTRAR" onPress={handleSubmit(handleRegisterUser)} />
                     <View style={{ width: '100%', alignItems: 'flex-end', paddingRight: 8, marginTop: 20 }}>

@@ -11,10 +11,12 @@ import { useItem } from "../../context/ItemContext";
 import { Button } from "../../components/Button";
 import { theme } from "../../globals/style/theme";
 import { api } from "../../service/api";
+import { useAuth } from "../../context/authContext";
 
 
 
 export function SchedulingScreen() {
+    const { user } = useAuth()
 
     const [disableBarberCard, setDisableBarberCard] = useState(true);
     const [disableCalendarCard, setDisableCalendarCard] = useState(true);
@@ -61,7 +63,7 @@ export function SchedulingScreen() {
         const params = {
             date: '2022-05-20',
             employee_id: idEmployee,
-            customer_id: 9,
+            customer_id: user?.id,
             services: [
                 {
                     id: idService,
@@ -149,13 +151,15 @@ export function SchedulingScreen() {
                 getIsClose={getIsCloseBottomSheetEmployee}
                 setIsClose={setIsCloseBottomSheetEmployee}
             />
+            <TouchableOpacity onPress={() => setIsCloseBottomSheetCalendar(false)}>
+                <BottomSheetSCalendar
+                    bottomSheetRef={bottomSheetRefCalendar}
+                    snapPoints={snapPointsCalendar}
+                    getIsClose={getIsCloseBottomSheetCalendar}
+                    setIsClose={setIsCloseBottomSheetCalendar}
+                />
 
-            <BottomSheetSCalendar
-                bottomSheetRef={bottomSheetRefCalendar}
-                snapPoints={snapPointsCalendar}
-                getIsClose={getIsCloseBottomSheetCalendar}
-                setIsClose={setIsCloseBottomSheetCalendar}
-            />
+            </TouchableOpacity>
         </View>
     )
 }

@@ -13,6 +13,7 @@ export const Container = styled.View`
     padding: 16px 20px;
     z-index: 1;
     align-items: flex-end;
+    padding-top: 72px;
 `
 
 export const Title = styled.Text`

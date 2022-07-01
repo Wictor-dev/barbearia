@@ -7,6 +7,7 @@ import { styles } from "./style";
 import { Feather } from '@expo/vector-icons'
 import { api } from "../../service/api";
 import { theme } from "../../globals/style/theme";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const ServicesList = function () {
 
@@ -18,7 +19,8 @@ const ServicesList = function () {
     const [loading, setLoading] = useState(true);
     const URL_REMOTE = "https://barber-scheduling.herokuapp.com/api"
     const URL_LOCAL = "http://192.168.0.5/barber_scheduling/public/api"
-    const TOKEN_REMOTE = '6|ij8of7GiHQyaUb6tQGVh0MpT3DbCQUHwHyc4hnp6'
+    const TOKEN_REMOTE = '1|1ktTUwbSkCgQAl55TKbkng87iZC3p3XxduSLiCt5'
+
     const TOKEN_LOCAL = "1aN1oG1GvQXDWfn5Ho02q6P8IA3TmMsFqkq3RAxJ"
 
     const fetchData = async () => {
@@ -49,8 +51,10 @@ const ServicesList = function () {
 
     return loading ? <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" color={theme.colors.g10} />
-    </View> : <View>
+    </View> : 
         <FlatList
+            // style={{minHeight: 100, maxHeight: 200}}
+            style={{flex: 1}}
             data={data}
             renderItem={
                 ({ item, index }) => <ItemList name={item.name} price={item.price} id={item.id} key={`${item.id}${index}`} setServiceChoose={setServiceChoose} getServiceChoose={getServiceChoose} />}
@@ -58,14 +62,14 @@ const ServicesList = function () {
 
         />
 
-    </View>
+
 }
 
 type ParamsBottomSheet = {
     bottomSheetRef: any,
     snapPoints: any,
-    getIsClose: () => boolean,
-    setIsClose: any
+    getIsClose?: () => boolean,
+    setIsClose?: any
 }
 
 const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClose, setIsClose}: ParamsBottomSheet) {
@@ -99,11 +103,11 @@ const BottomSheetServicesList = function ({ bottomSheetRef, snapPoints, getIsClo
                     </View>
                 </View>
             </View> */}
-            <View style={{flex: 1, alignItems: 'center', paddingTop: 40}}>
+            <View style={{alignItems: 'center', paddingTop: 24, paddingBottom: 24}}>
                 <Button 
                     title="CONFIRMAR" 
-                    color={theme.colors.b10} 
-                    textColor={theme.colors.b01} 
+                    color={theme.colors.orange} 
+                    textColor="#000" 
                     size="large" 
                     onPress={handleConfirmBottomSheet}
                 />
