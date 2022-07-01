@@ -106,7 +106,8 @@ export const AuthProvider: React.FC = ({children}) => {
                     if (serverError.response.status === 404){
                         ErrorAlert(`${serverError.response.status}`,"A rota não foi encontrada")
                     } else if (serverError.response.status === 401) {
-                        ErrorAlert(`${serverError.response.status}`,serverError.response.data.message)
+                        ErrorAlert("Usuário Inválido","Credenciais não correspondem")
+                        //ErrorAlert(`${serverError.response.status}`,serverError.response.data.message)
                     }
                     console.log(serverError.response.data, serverError.response.status)
                 }
