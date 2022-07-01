@@ -151,7 +151,7 @@ const BottomSheetSCalendar = function({bottomSheetRef,snapPoints, getIsClose, se
     
 
   return  (
-     <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints} style={getIsClose() ? { display: 'none' } : { display: 'flex'}} >
+     <BottomSheet ref={bottomSheetRef} snapPoints={snapPoints}  >
             <CalendarView/>
             <View >
                 <FlatList

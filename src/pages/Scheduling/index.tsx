@@ -151,7 +151,7 @@ export function SchedulingScreen() {
                 getIsClose={getIsCloseBottomSheetEmployee}
                 setIsClose={setIsCloseBottomSheetEmployee}
             />
-            <TouchableOpacity onPress={() => setIsCloseBottomSheetCalendar(false)}>
+            {/* <TouchableOpacity onPress={() => setIsCloseBottomSheetCalendar(false)}> */}
                 <BottomSheetSCalendar
                     bottomSheetRef={bottomSheetRefCalendar}
                     snapPoints={snapPointsCalendar}
@@ -159,7 +159,7 @@ export function SchedulingScreen() {
                     setIsClose={setIsCloseBottomSheetCalendar}
                 />
 
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
         </View>
     )
 }
