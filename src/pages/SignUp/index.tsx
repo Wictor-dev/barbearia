@@ -48,6 +48,8 @@ export default function SignUp() {
 
         signUp(name, email, password, confirm_password,userIndex, handleBackLogin);
     }
+
+    const data = ["Usuário", "Barbeiro"]
     return (
         <ImageBackground source={require('../../assets/images/backgroundAuth.png')} resizeMode='cover' style={{ flex: 1, justifyContent: 'center', paddingRight: 16, paddingLeft: 16 }}>
             <BlurView tint="dark" intensity={80}>
@@ -61,7 +63,7 @@ export default function SignUp() {
                     <View style={{ height: 20 }} />
                     <ControlledInput name="confirm_password" control={control} error={errors.confirm_password} label="Confirmar senha" />
                     <View style={{ height: 20 }} />
-                    <Select onChangeValue={handleSetUserIndex}/>
+                    <Select onChangeValue={handleSetUserIndex} data={data}/> 
                     <View style={{ height: 80 }} />
                     <Button  size="large" title="CADASTRAR" onPress={handleSubmit(handleRegisterUser)} />
                     <View style={{ width: '100%', alignItems: 'flex-end', paddingRight: 8, marginTop: 20 }}>

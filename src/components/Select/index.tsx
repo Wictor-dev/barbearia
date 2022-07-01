@@ -5,15 +5,14 @@ import { SelectView } from "./style";
 import SelectDropdown from "react-native-select-dropdown";
 
 type SelectProps = {
-    onChangeValue(value: number): void
+    data: any[];
+    onChangeValue(value: number): void;
+    defaultMessage?: string;
 }
-export function Select({onChangeValue} : SelectProps){
+export function Select({data, onChangeValue, defaultMessage} : SelectProps){
     return (
         <SelectDropdown
-            data={[
-                "Usuário",
-                "Barbeiro"
-            ]}
+            data={data}
             onSelect={(selectedItem, index) => {
                 onChangeValue(index)
             }}
@@ -21,16 +20,16 @@ export function Select({onChangeValue} : SelectProps){
             buttonTextAfterSelection={(selectedItem, index) => {
                 // text represented after item is selected
                 // if data array is an array of objects then return selectedItem.property to render after item is selected
-                return selectedItem
+                return selectedItem.name
             }}
             rowTextForSelection={(item, index) => {
                 // text represented for each item in dropdown
                 // if data array is an array of objects then return item.property to represent item in dropdown
-                return item
+                return item.name
             }}
 
             buttonStyle={styles.container}
-            defaultButtonText="Escolha o tipo de usuário"
+            defaultButtonText={defaultMessage ? defaultMessage : "Escolha uma opção"}
             dropdownStyle={{borderRadius: 5}}
         />
 
